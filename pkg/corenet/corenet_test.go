@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/gorilla/websocket"
-	"github.com/yelaco/gchess-server/pkg/config"
 )
 
 var ch = make(chan bool)
@@ -14,7 +13,7 @@ var ch = make(chan bool)
 func TestWebSocketServer(t *testing.T) {
 	go setupWebSocketServer()
 
-	u := url.URL{Scheme: "ws", Host: "localhost:" + config.Port, Path: "/ws"}
+	u := url.URL{Scheme: "ws", Host: "localhost:7201", Path: "/ws"}
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
 		log.Fatal("dial:", err)

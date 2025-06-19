@@ -7,7 +7,7 @@ import (
 	"github.com/yelaco/gchess-server/pkg/logging"
 	"github.com/yelaco/gchess-server/pkg/matcher"
 	"github.com/yelaco/gchess-server/pkg/session"
-	"github.com/yelaco/gchess-server/pkg/utils"
+	"github.com/yelaco/gchess-server/pkg/util"
 	"go.uber.org/zap"
 )
 
@@ -30,8 +30,8 @@ func NewAgent() *Agent {
 }
 
 // Start the server for handling game session
-func (a *Agent) StartGameServer() error {
-	err := a.wsServer.Start()
+func (a *Agent) StartGameServer(port string) error {
+	err := a.wsServer.Start(port)
 	if err != nil {
 		return err
 	}
@@ -110,7 +110,7 @@ func (a *Agent) handleWebSocketMessage(conn *websocket.Conn, message *corenet.Me
 	case "matching":
 		playerID, ok := message.Data["player_id"].(string)
 		if ok {
-			*connID = utils.GenerateUUID()
+			*connID = util.GenerateUUID()
 			logging.Info("attempt matchmaking",
 				zap.String("status", "queued"),
 				zap.String("player_id", playerID),

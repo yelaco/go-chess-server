@@ -1,0 +1,13 @@
+address:
+  host: localhost
+  ws_port: "7201"
+  http_port: "7202"
+
+database:
+  name: postgres
+  host: localhost
+  user: postgres
+  password: password
+
+game:
+  matching_timeout: 30

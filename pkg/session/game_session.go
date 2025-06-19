@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/yelaco/gchess-server/internal/game"
 	"github.com/yelaco/gchess-server/pkg/logging"
-	"github.com/yelaco/gchess-server/pkg/utils"
+	"github.com/yelaco/gchess-server/pkg/util"
 	"go.uber.org/zap"
 )
 
@@ -235,7 +235,7 @@ func ProcessFenMove(sessionID, playerID, fenMove string) {
 				Type: "session",
 				GameState: gameStateResponse{
 					Status:      gameState.Status,
-					BoardFen:    utils.BoardToFen(gameState.Board),
+					BoardFen:    util.BoardToFen(gameState.Board),
 					IsWhiteTurn: gameState.IsWhiteTurn,
 				},
 			}); err != nil {

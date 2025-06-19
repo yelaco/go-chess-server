@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"github.com/gorilla/websocket"
-	"github.com/yelaco/gchess-server/pkg/config"
 	"github.com/yelaco/gchess-server/pkg/logging"
 	"go.uber.org/zap"
 )
@@ -22,9 +21,9 @@ type Message struct {
 	Data   map[string]interface{} `json:"data"`
 }
 
-func NewWebSocketServer() *WebSocketServer {
+func NewWebSocketServer(port string) *WebSocketServer {
 	return &WebSocketServer{
-		address: "0.0.0.0:" + config.Port,
+		address: "0.0.0.0:" + port,
 		upgrader: websocket.Upgrader{
 			ReadBufferSize:  1024,
 			WriteBufferSize: 1024,
@@ -52,7 +51,7 @@ func (s *WebSocketServer) SetConnCloseGameHandler(ccgHandler func(string)) {
 /*
 Start the websocket server
 */
-func (s *WebSocketServer) Start() error {
+func (s *WebSocketServer) Start(port string) error {
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		conn, err := s.upgrader.Upgrade(w, r, nil)
 		if err != nil {
@@ -82,6 +81,6 @@ func (s *WebSocketServer) Start() error {
 			s.messageHandler(conn, &msg, &connID)
 		}
 	})
-	logging.Info("websocket server started", zap.String("port", config.Port))
+	logging.Info("websocket server started", zap.String("port", port))
 	return http.ListenAndServe(s.address, nil)
 }

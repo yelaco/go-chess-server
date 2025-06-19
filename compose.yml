@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    container_name: gchess-server
+    ports:
+      - "7202:7202"
+      - "7201:7201"
+    environment:
+      - DATABASE_URL=postgresql://root:secret@db:5432/gchess
+    depends_on:
+      - db
+
+  db:
+    image: postgres:12-alpine
+    container_name: postgres-gchess
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: gchess
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/migration:/docker-entrypoint-initdb.d/
+
+volumes:
+  postgres-gchess-data:

@@ -3,7 +3,6 @@ package game
 import (
 	"math"
 
-	"github.com/yelaco/gchess-server/pkg/config"
 	"github.com/yelaco/gchess-server/pkg/logging"
 )
 

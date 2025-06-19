@@ -3,7 +3,7 @@ package database
 import (
 	"errors"
 
-	"github.com/yelaco/gchess-server/pkg/utils"
+	"github.com/yelaco/gchess-server/pkg/util"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -30,7 +30,7 @@ func CreateUser(username, password string) (User, error) {
 		return User{}, err
 	}
 	user := User{
-		PlayerID: utils.GenerateUUID(),
+		PlayerID: util.GenerateUUID(),
 		Username: username,
 		Password: string(hashedPassword),
 	}

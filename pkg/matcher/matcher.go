@@ -5,10 +5,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/yelaco/gchess-server/pkg/config"
 	"github.com/yelaco/gchess-server/pkg/logging"
 	"github.com/yelaco/gchess-server/pkg/session"
-	"github.com/yelaco/gchess-server/pkg/utils"
+	"github.com/yelaco/gchess-server/pkg/util"
 	"go.uber.org/zap"
 )
 
@@ -89,7 +88,7 @@ func (m *Matcher) EnterQueue(player *session.Player, connID string) {
 Matcher pushes player out of the matching queue after a timeout if there aren't no matches available.
 */
 func (m *Matcher) leaveQueueIfTimeout(player *session.Player, connID string) {
-	time.Sleep(config.MatchingTimeout)
+	time.Sleep(30 * time.Second)
 	if player == nil {
 		return
 	}
@@ -182,7 +181,7 @@ func notifyMatchingResult(sessionID string, player *session.Player) {
 		SessionID: sessionID,
 		GameState: gameStateResponse{
 			Status:      gameState.Status,
-			BoardFen:    utils.BoardToFen(gameState.Board),
+			BoardFen:    util.BoardToFen(gameState.Board),
 			IsWhiteTurn: gameState.IsWhiteTurn,
 		},
 		PlayerState: playerState,

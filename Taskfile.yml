@@ -2,7 +2,7 @@ version: "3"
 
 vars:
   BINARY_NAME: gchess-server
-  PKG: ./cmd/game-server/server.go
+  PKG: ./cmd/server/main.go
 
 tasks:
   setup:
