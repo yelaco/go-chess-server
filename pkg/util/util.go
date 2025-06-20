@@ -7,11 +7,20 @@ import (
 	"github.com/google/uuid"
 )
 
+func IsClosed[T any](ch <-chan T) bool {
+	select {
+	case <-ch:
+		return true
+	default:
+		return false
+	}
+}
+
 func GenerateUUID() string {
 	return uuid.NewString()
 }
 
-func BoardToFen(board [8][8]string) string {
+func BoardToFen(board [][]string) string {
 	var fen strings.Builder
 
 	for j := 7; j >= 0; j-- {

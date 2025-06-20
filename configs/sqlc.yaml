@@ -1,0 +1,13 @@
+version: "2"
+sql:
+  - schema: "internal/db/migration/"
+    queries: "internal/db/query/"
+    engine: "postgresql"
+    gen:
+      go:
+        package: "db"
+        out: "internal/db/sqlc"
+        sql_package: "database/sql"
+        emit_empty_slices: true
+        emit_interface: true
+        emit_json_tags: true

@@ -8,8 +8,7 @@ import (
 
 type Config struct {
 	Host            string        `mapstructure:"address.host"`
-	WsPort          string        `mapstructure:"address.ws_port"`
-	HttpPort        string        `mapstructure:"address.http_port"`
+	Port            string        `mapstructure:"address.port"`
 	MatchingTimeout time.Duration `mapstructure:"game.matching_timeout"`
 	DBName          string        `mapstructure:"database.name"`
 	DBHost          string        `mapstructure:"database.host"`
